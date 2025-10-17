@@ -1,0 +1,33 @@
+{
+  "include": ["~/.config/waybar/modules.jsonc"],
+  "position": "top",
+  "layer": "bottom",
+  "margin": 1,
+  "spacing": 1,
+  "reload_style_on_change": true,
+  "modules-left": [
+    "tray",
+    "idle_inhibitor",
+    "custom/github",
+    "bluetooth",
+    "backlight",
+    "network",
+    "battery",
+    "custom/battery-mode",
+    "wireplumber",
+    "mpris"
+  ],
+  "modules-center": ["hyprland/workspaces"],
+  "modules-right": [
+    "power-profiles-daemon",
+    "cpu",
+    "temperature",
+    "memory",
+    "disk",
+    "custom/screenshot",
+    "custom/weather",
+    "clock",
+    "systemd-failed-units",
+    "custom/power"
+  ]
+}

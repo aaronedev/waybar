@@ -1,0 +1,353 @@
+{
+  "hyprland/workspaces": {
+    "format": "{name}",
+    "separate-outputs": false,
+    "show-special": true,
+    "special-visible-only": false,
+    "all-outputs": false
+  },
+  "mpd": {
+    "format": "{stateIcon} {artist} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S})",
+    "format-disconnected": "󰎊 Disconnected",
+    "format-stopped": "󰓛 Stopped",
+    "interval": 10,
+    "max-length": 40,
+    "ellipsis": "...",
+    "tooltip": true,
+    "consume-icons": {
+      "on": "󰒬 "
+    },
+    "random-icons": {
+      "off": "<span color='#f53c3c'>󰒞</span> ",
+      "on": "󰒝 "
+    },
+    "repeat-icons": {
+      "on": "󰑖 "
+    },
+    "single-icons": {
+      "on": "󰑘 "
+    },
+    "state-icons": {
+      "paused": "󰏤",
+      "playing": "󰐊"
+    },
+    "tooltip-format": "MPD (connected)\n󰀥 Album: {album}\n󰀋 Artist: {artist}\n󰝚 Title: {title}\n󰎈 Queue: {songPosition}/{queueLength}",
+    "tooltip-format-disconnected": "MPD (disconnected)",
+    "on-click": "mpc toggle",
+    "on-click-right": "uwsm app -- wezterm start --class ncmpcpp",
+    "on-scroll-up": "mpc volume +2",
+    "on-scroll-down": "mpc volume -2"
+  },
+  "mpris": {
+    "player": "playerctld",
+    "interval": 2,
+    "format": "{player_icon}",
+    "format-playing": "{status_icon}",
+    "format-paused": "{status_icon}",
+    "format-stopped": "",
+    "format-disconnected": "",
+    "tooltip-format": "{title} - {artist} ({album})",
+    "enable-tooltip-len-limits": true,
+    "status-icons": {
+      "playing": "󰐊",
+      "paused": "󰏤",
+      "stopped": "󰓛"
+    },
+    "ellipsis": "...",
+    "on-click": "playerctl play-pause",
+    "on-click-middle": "playerctl stop",
+    "on-click-right": "playerctl next",
+    "on-scroll-up": "playerctl position 5+",
+    "on-scroll-down": "playerctl position 5-",
+    "escape": true
+  },
+  "systemd-failed-units": {
+    "hide-on-ok": false,
+    "format": "✗ {nr_failed}",
+    "format-ok": "✓",
+    "system": true,
+    "user": true,
+    "on-click-right": "uwsm app -- wezterm start --class systemctl -- bash -c 'echo \"System failed units:\"; systemctl --failed; echo \"\\nUser failed units:\"; systemctl --user --failed; echo \"\\n\"; exec bash'"
+  },
+  "cava": {
+    "framerate": 30,
+    "autosens": 1,
+    "sensitivity": 100,
+    "bars": 14,
+    "lower_cutoff_freq": 50,
+    "higher_cutoff_freq": 10000,
+    "hide_on_silence": false,
+    "method": "pulse",
+    "source": "auto",
+    "stereo": true,
+    "reverse": false,
+    "bar_delimiter": 0,
+    "monstercat": false,
+    "waves": false,
+    "noise_reduction": 0.77,
+    "input_delay": 2,
+    "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
+    "actions": {
+      "on-click-right": "mode"
+    }
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "",
+      "deactivated": ""
+    },
+    "tooltip": true,
+    "tooltip-format": "🚫 Idle Inhibitor\nStatus: {status}\nPrevents system sleep when activated"
+  },
+  "tray": {
+    "icon-size": 20,
+    "spacing": 4,
+    "show-passive-items": true,
+    "tooltip": true,
+    "tooltip-format": "📋 System Tray\nIcon size: 20px\nShowing passive items: true"
+  },
+  "clock": {
+    "interval": 60,
+    "locale": "de_DE.UTF-8",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt>{calendar}</tt>",
+    "format": "{:L%H:%M %a, %d.%m.%y}",
+    "max-length": 25,
+    "timezones": ["Europe/Berlin", "Etc/UTC"],
+    "calendar": {
+      "mode": "month",
+      "mode-mon-col": 3,
+      "weeks-pos": "right",
+      "on-scroll": 1,
+      "format": {
+        "months": "<span color='#C1A6FF'><b>{}</b></span>",
+        "days": "<span color='#BCADFF'><b>{}</b></span>",
+        "weeks": "<span color='#8F8FFF'><b>W{}</b></span>",
+        "weekdays": "<span color='#A884FF'><b>{}</b></span>",
+        "today": "<span color='#EB5A5A'><b><u>{}</u></b></span>"
+      }
+    },
+    "actions": {
+      "on-click-right": "mode",
+      "on-click-forward": "tz_up",
+      "on-click-backward": "tz_down",
+      "on-scroll-up": "shift_up",
+      "on-scroll-down": "shift_down"
+    }
+  },
+  "cpu": {
+    "interval": 1,
+    "format": "{usage}% {icon0}{icon1}{icon2}{icon3}{icon4}{icon5}{icon6}{icon7}",
+    "format-icons": [
+      "<span color='#4bfe9b'>⣀</span>",
+      "<span color='#00fff9'>⣤</span>",
+      "<span color='#f0f0f5'>⣦</span>",
+      "<span color='#f8f8f2'>⣶</span>",
+      "<span color='#ffffa5'>⣷</span>",
+      "<span color='#ffffa5'>⣾</span>",
+      "<span color='#fd7cff'>⣿</span>",
+      "<span color='#ff1a67'>⣿</span>"
+    ],
+    "tooltip": true,
+    "tooltip-format": "CPU Usage: {usage}%\nLoad: {load}",
+    "on-click-right": "~/.local/bin/wezterm-launch.sh btop"
+  },
+  "memory": {
+    "interval": 30,
+    "format": "{used:0.1f}G/{total:0.1f}G",
+    "format-alt": "{percentage}%",
+    "states": {
+      "low": 0,
+      "medium": 50,
+      "high": 80,
+      "critical": 90
+    },
+    "on-click-right": "uwsm app -- wezterm start --class watch -- watch free -h",
+    "tooltip": true,
+    "tooltip-format": "󰆼 Memory Usage\n RAM: {used:0.1f}G used of {total:0.1f}G ({percentage}%)\n󰘚 Swap: {swapUsed:0.1f}G used of {swapTotal:0.1f}G ({swapPercentage}%)\n󰁝 Available: {avail:0.1f}G"
+  },
+  "temperature": {
+    "hwmon-path": "/sys/devices/pci0000:00/0000:00:03.1/0000:2b:00.0/hwmon/hwmon0/temp1_input",
+    "critical-threshold": 80,
+    "format-critical": "{temperatureC}°C ",
+    "format": "{temperatureC}°C ",
+    "tooltip": true,
+    "states": {
+      "normal": 45,
+      "warm": 65,
+      "hot": 80,
+      "critical": 85
+    },
+    "tooltip-format": "🌡 CPU Temperature\nCurrent: {temperatureC}°C\n🟢 Idle: <45°C\n🔵 Light: 45-65°C\n🟣 Heavy: 65-80°C\n🔴 Critical: >80°C (Throttles at 95°C)"
+  },
+  "backlight": {
+    "device": "intel_backlight",
+    "format": "{percent}% {icon}",
+    "format-icons": ["󱩎", "󱩏", "󱩐", "󱩑", "󱩒", "󱩓", "󱩔", "󱩕", "󱩖", "󰛨"],
+    "tooltip": true,
+    "tooltip-format": "💡 Display Brightness\nLevel: {percent}%"
+  },
+  "battery": {
+    "interval": 60,
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{capacity}% {icon}",
+    "format-icons": ["", "", "", "", ""],
+    "max-length": 25,
+    "tooltip": true,
+    "tooltip-format": "🔋 Battery Status\nCapacity: {capacity}%\nPower: {power}W\nTime: {time}\nCycles: {cycles}\nHealth: {health}%"
+  },
+  "bluetooth": {
+    "format": "<span color='#007FFF'></span> {status}",
+    "format-connected": "<span color='#007FFF'></span> {device_alias}",
+    "format-connected-battery": "<span color='#007FFF'></span> {device_alias} {device_battery_percentage}%",
+    "format-no-controller": "",
+    "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+    "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+    "on-click": "blueman-manager"
+  },
+  "network": {
+    "interval": 5,
+    "format": "{ifname}",
+    "format-wifi": "{essid} ({signalStrength}%)",
+    "format-ethernet": "{ipaddr}/{cidr}",
+    "format-linked": "󰖪 {ifname} (No IP)",
+    "format-disconnected": "󰤭 Disconnected",
+    "format-disabled": "󰤮 Disabled",
+    "format-alt": "󰩟 {bandwidthDownBytes} 󰕒 {bandwidthUpBytes}",
+    "tooltip-format": "Interface: {ifname}\nIP: {ipaddr}/{cidr}\nGateway: {gwaddr}\nNetmask: {netmask}",
+    "tooltip-format-wifi": "Network: {essid} ({signalStrength}%)\nSignal: {signaldBm} dBm\nFrequency: {frequency} GHz\nIP: {ipaddr}/{cidr}\nGateway: {gwaddr}\nNetmask: {netmask}\n\nBandwidth:\n󰕒 Up: {bandwidthUpBytes}/s ({bandwidthUpBits} bps)\n󰩟 Down: {bandwidthDownBytes}/s ({bandwidthDownBits} bps)\n󰑓 Total: {bandwidthTotalBytes}/s",
+    "tooltip-format-ethernet": "Ethernet Connection\nInterface: {ifname}\nIP: {ipaddr}/{cidr}\nGateway: {gwaddr}\nNetmask: {netmask}\nCIDR: /{cidr}\n\nBandwidth:\n󰕒 Up: {bandwidthUpBytes}/s ({bandwidthUpBits} bps)\n󰩟 Down: {bandwidthDownBytes}/s ({bandwidthDownBits} bps)\n󰑓 Total: {bandwidthTotalBytes}/s",
+    "tooltip-format-linked": "Interface: {ifname}\nStatus: Connected but no IP assigned\nCheck your network configuration",
+    "tooltip-format-disconnected": "Network Disconnected\nNo active network connection\nClick to open network manager",
+    "tooltip-format-disabled": "Network Interface Disabled\nNetwork hardware is turned off",
+    "on-click-right": "nm-connection-editor",
+    "max-length": 50
+  },
+  "wireplumber": {
+    "format": "{icon} {volume}%",
+    "format-muted": "󰝟 Muted",
+    "on-click": "pavucontrol -t 3",
+    "format-icons": ["", "", ""],
+    "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 3%+",
+    "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 3%-",
+    "smooth-scrolling-threshold": 1,
+    "scroll-step": 1,
+    "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "on-click-middle": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 50%",
+    "reverse-scrolling": 1,
+    "states": {
+      "muted": 0,
+      "very-low": 1,
+      "low": 30,
+      "medium": 60,
+      "high": 85,
+      "very-high": 101
+    },
+    "tooltip": true,
+    "tooltip-format": "🔊 Audio Device\nOutput: {node_name}\nVolume: {volume}%"
+  },
+  "power-profiles-daemon": {
+    "format": "{icon}",
+    "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+    "tooltip": true,
+    "format-icons": {
+      "default": "",
+      "performance": "",
+      "balanced": "",
+      "power-saver": ""
+    }
+  },
+  "custom/spotify": {
+    "exec": "scripts/mediaplayer.py --player spotify 2> /dev/null",
+    "return-type": "json",
+    "exec-if": "pgrep spotify",
+    "escape": true,
+    "format": " {}",
+    "on-click": "playerctl -p spotify play-pause",
+    "on-click-middle": "playerctl -p spotify next",
+    "on-click-right": "playerctl -p spotify previous",
+    "max-length": 40
+  },
+  "disk": {
+    "interval": 30,
+    "format": "󰋊 {percentage_used}%",
+    "format-alt": "󰋊 {free} ({percentage_free}%)",
+    "path": "/",
+    "tooltip": true,
+    "tooltip-format": "Disk usage (/)\n󰉋 Available: {free} ({percentage_free}%)\n󰈀 Total: {total}\n󰉌 Used: {used} ({percentage_used}%)",
+    "states": {
+      "low": 0,
+      "medium": 50,
+      "high": 70,
+      "critical": 90
+    },
+    "on-click-middle": "uwsm app -- wezterm start --class btop",
+    "on-click-right": "uwsm app -- wezterm start --class ncdu -- ncdu --color dark ~/"
+  },
+  "privacy": {
+    "icon-spacing": 2,
+    "icon-size": 15,
+    "transition-duration": 500,
+    "format": "{icon}",
+    "modules": [
+      {
+        "type": "screenshare",
+        "tooltip": true,
+        "tooltip-icon-size": 18
+      },
+      {
+        "type": "audio-out",
+        "tooltip": true,
+        "tooltip-icon-size": 18
+      },
+      {
+        "type": "audio-in",
+        "tooltip": true,
+        "tooltip-icon-size": 18
+      }
+    ]
+  },
+  "custom/power": {
+    "format": "⭘",
+    "tooltip": true,
+    "tooltip-format": "Power menu",
+    "on-click": "wlogout"
+  },
+  "custom/weather": {
+    "exec": "~/.local/bin/get_weather.sh Cologne+Germany",
+    "return-type": "json",
+    "format": "{}",
+    "tooltip": true,
+    "interval": 3600,
+    "on-click": "xdg-open 'https://wttr.in/Cologne+Germany'",
+    "on-click-right": "~/.local/bin/get_weather.sh Cologne+Germany"
+  },
+  "custom/github": {
+    "format": " {}",
+    "format-new": " {}",
+    "return-type": "json",
+    "interval": 60,
+    "exec": "~/.local/bin/github_notifications.sh",
+    "on-click": "xdg-open https://github.com/notifications"
+  },
+  "custom/battery-mode": {
+    "exec": "~/.config/hypr/scripts/battery_status.sh",
+    "return-type": "json",
+    "interval": 2,
+    "on-click": "~/.config/hypr/scripts/battery_toggle.sh",
+    "format": "{}"
+  },
+  "custom/screenshot": {
+    "format": "󰄀",
+    "tooltip": true,
+    "tooltip-format": "Screenshot area (grim-wrapper)\nLeft click: select area\nRight click: select window\nMiddle click: full screen",
+    "on-click": "~/.local/bin/grim-wrapper area",
+    "on-click-right": "~/.local/bin/grim-wrapper window",
+    "on-click-middle": "~/.local/bin/grim-wrapper screen"
+  }
+}
