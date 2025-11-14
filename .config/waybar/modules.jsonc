@@ -7,7 +7,7 @@
   "hyprland/workspaces": {
     "format": "{name}",
     "separate-outputs": false,
-    "show-special": true,
+    "show-special": false,
     "special-visible-only": false,
     "all-outputs": false
   },
