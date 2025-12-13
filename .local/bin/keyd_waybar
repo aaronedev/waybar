@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -u
+
+STATE_FILE="${XDG_STATE_HOME:-$HOME/.local/state}/keyd/layer"
+
+layer="main"
+if [[ -r $STATE_FILE ]]; then
+  layer="$(<"$STATE_FILE")"
+fi
+
+icon=""
+short="M"
+
+case "$layer" in
+nav) short="N" ;;
+numpad) short="#" ;;
+hyper) short="H" ;;
+esac
+
+text="$icon $short"
+tooltip="keyd layer: $layer"
+
+printf '{"text":"%s","tooltip":"%s","class":["keyd-layer","%s"]}\n' \
+  "$text" "$tooltip" "$layer"

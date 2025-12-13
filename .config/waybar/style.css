@@ -1,0 +1,655 @@
+/* ╔══════════════════════════╗ */
+/* ║ ░█▀▀░▀█▀░█░█░█░░░█▀▀░█▀▀ ║ */
+/* ║ ░▀▀█░░█░░░█░░█░░░█▀▀░▀▀█ ║ */
+/* ║ ░▀▀▀░░▀░░░▀░░▀▀▀░▀▀▀░▀▀▀ ║ */
+/* ╚══════════════════════════╝ */
+@import "themes/violet-void-theme_waybar.css";
+
+/* ==========================================
+  ANIMATIONS keyframes
+  ========================================== */
+
+@keyframes blink {
+  0% {
+    background-color: transparent;
+    color: @purple;
+  }
+  50% {
+    background-color: @rgba-magenta;
+    color: @magenta2;
+  }
+  100% {
+    background-color: transparent;
+    color: @magenta;
+  }
+}
+
+@keyframes blink-positive {
+  0% {
+    background-color: transparent;
+    color: @green;
+  }
+  50% {
+    background-color: @rgba-green;
+    color: @green;
+  }
+  100% {
+    background-color: transparent;
+    color: @green2;
+  }
+}
+/* ==========================================
+   GLOBAL STYLES
+   ========================================== */
+
+* {
+  font-family: FontAwesome, Cantarell, Roboto, Helvetica, Arial, Nerd Font Symbols Mono, sans-serif;
+  font-size: 1rem;
+  min-height: 0;
+  border: none;
+  border-radius: 0;
+}
+
+/* ==========================================
+   WINDOW & BASE STYLES
+   ========================================== */
+
+window#waybar {
+  background-color: @rgba-bg;
+  color: @fg-white;
+  border: none;
+  border-radius: 0.5rem;
+  transition: background-color 0.5s;
+  box-shadow: 0 0.125rem 0.375rem @rgba-shadow;
+}
+
+window#waybar.hidden {
+  opacity: 0.2;
+}
+
+/* ==========================================
+   WORKSPACES
+   ========================================== */
+
+#workspaces {
+  margin: 0 0.1875rem;
+}
+
+#workspaces button {
+  color: @blue1;
+  padding: 0 0.3125rem;
+  border-radius: 0.25rem;
+  margin: 0 0.125rem;
+}
+
+#workspaces button.active {
+  background-color: @dark5;
+  color: @blue0;
+}
+
+#workspaces button.urgent {
+  background-color: @red1;
+  animation: blink 3s infinite ease-in-out;
+  color: @fg-white;
+}
+
+#workspaces button.empty {
+  background-color: transparent;
+}
+
+#workspaces button.special {
+  background-color: @rgba-shadow-medium;
+  color: @comment;
+}
+
+/* ==========================================
+   SHARED MODULE STYLES
+   ========================================== */
+
+#clock,
+#battery,
+#cpu,
+#custom-gpu_temp,
+#memory,
+#disk,
+#idle_inhibitor,
+#temperature,
+#backlight,
+#network,
+#custom-media,
+#mode,
+#mpd,
+#scratchpad,
+#custom-weather,
+#custom-power,
+#systemd-failed-units,
+#custom-pacman,
+#custom-spotify,
+#mpris,
+#language,
+#keyboard-state,
+#bluetooth,
+#pulseaudio,
+#pulseaudio-microphone,
+#power-profiles-daemon,
+#wireplumber,
+#privacy-item {
+  margin: 0 0.25rem;
+  border-radius: 0.5625rem;
+  min-width: 1.25rem;
+  box-shadow: 0 0.0625rem 0.0625rem @rgba-shadow-light;
+}
+
+/* ==========================================
+   AUDIO & VOLUME
+   ========================================== */
+
+#wireplumber {
+  padding: 0 0.0em 0 0.2em;
+}
+
+#wireplumber.muted {
+  color: @magenta;
+  background-color: @dark5;
+  animation: blink 3s infinite ease-in-out;
+}
+
+#wireplumber.very-low {
+  color: @purple;
+}
+
+#wireplumber.low {
+  color: @blue;
+}
+
+#wireplumber.medium {
+  color: @cyan;
+}
+
+#wireplumber.high {
+  color: @cyan;
+}
+
+#wireplumber.very-high {
+  color: @red1;
+  animation: blink 3s infinite ease-in-out;
+  background-color: @rgba-red;
+}
+
+#cava {
+  opacity: 0.9;
+}
+
+#pulseaudio-microphone {
+  color: @green;
+}
+
+#pulseaudio-microphone.muted {
+  color: @red1;
+  animation: blink 3s infinite ease-in-out;
+}
+
+/* ==========================================
+   SYSTEM MONITORING
+   ========================================== */
+
+/* Battery States */
+#battery {
+  color: @green;
+}
+
+#battery.critical {
+  color: @red1;
+  background-color: @rgba-red;
+}
+
+#battery.low {
+  color: @red;
+}
+
+#battery.medium {
+  color: @purple;
+}
+
+#battery.high {
+  color: @green;
+}
+
+#battery.full {
+  color: @green;
+}
+
+#battery.charging {
+  color: @cyan;
+  animation: blink 3s infinite ease-in-out;
+}
+
+#battery.warning:not(.charging) {
+  background: @red;
+  color: white;
+  animation: blink 3s infinite ease-in-out;
+}
+
+/* CPU States */
+#cpu {
+  color: @cyan;
+}
+
+#custom-gpu_temp {
+  color: @blue;
+}
+
+/* Memory States */
+#memory {
+  color: @green;
+}
+
+#memory.low {
+  color: @green;
+}
+
+#memory.medium {
+  color: @purple;
+}
+
+#memory.high {
+  color: @red;
+  animation: blink 3s infinite ease-in-out;
+}
+
+#memory.critical {
+  color: @red1;
+  animation: blink 3s infinite ease-in-out;
+}
+
+#temperature {
+  color: @green;
+}
+
+#temperature.normal {
+  color: @green;
+}
+
+#temperature.warm {
+  color: @blue;
+}
+
+#temperature.hot {
+  color: @red;
+}
+
+#temperature.critical {
+  color: @red1;
+  animation: blink 3s infinite ease-in-out;
+  background-color: @rgba-red;
+}
+
+/* Disk States */
+#disk.low {
+  color: @green;
+}
+
+#disk.medium {
+  color: @blue;
+}
+
+#disk.high {
+  color: @red1;
+  animation: blink 3s infinite ease-in-out;
+}
+
+#disk.critical {
+  color: @red1;
+  animation: blink 3s infinite ease-in-out;
+}
+
+/* Power Profiles */
+#power-profiles-daemon {
+  color: @green;
+}
+
+#power-profiles-daemon.performance {
+  animation: blink 3s infinite ease-in-out;
+  color: @red1;
+}
+
+#power-profiles-daemon.balanced {
+  color: @magenta;
+}
+
+#power-profiles-daemon.power-saver {
+  color: @green;
+}
+
+/* ==========================================
+   MEDIA & MPRIS
+   ========================================== */
+
+#mpris.playing {
+  color: @green;
+}
+
+#mpris.paused {
+  color: @comment;
+}
+
+#mpris.stopped {
+  color: @red;
+  animation: blink 3s infinite ease-in-out;
+}
+
+/* MPD */
+#mpd {
+  color: @green;
+  background-color: @rgba-green;
+}
+
+#mpd.disconnected {
+  color: @red1;
+}
+
+#mpd.stopped {
+  color: @dark5;
+}
+
+#mpd.paused {
+  color: @cyan;
+}
+
+#custom-media {
+  background-color: @rgba-magenta2;
+  color: @magenta;
+}
+
+#custom-media.custom-spotify {
+  background-color: @rgba-green2;
+  color: @green2;
+}
+
+#custom-media.custom-vlc {
+  background-color: @rgba-orange;
+  color: @orange;
+}
+
+/* ==========================================
+   NETWORK & CONNECTIVITY
+   ========================================== */
+
+#network {
+  padding: 0 0.3em 0 0em;
+  color: @green;
+}
+
+#network.disconnected {
+  color: @red1;
+}
+
+#network.linked,
+#network.ethernet {
+  color: @blue;
+}
+
+#network.wifi {
+  color: @cyan;
+}
+
+#bluetooth {
+  color: @blue;
+}
+
+#bluetooth.disconnected {
+  color: @dark5;
+}
+
+#bluetooth.connected {
+  color: @green;
+}
+
+/* ==========================================
+   INTERFACE ELEMENTS
+   ========================================== */
+
+#clock {
+  color: @cyan;
+}
+
+#idle_inhibitor {
+  color: @magenta;
+}
+
+#idle_inhibitor.activated {
+  color: @blue0;
+  animation: blink-positive 2s infinite ease-in-out;
+}
+
+#language {
+  color: @blue;
+}
+
+#keyboard-state {
+  color: @fg-white;
+}
+
+#keyboard-state>label.locked {
+  background: @terminal-black;
+  color: @purple;
+}
+
+#scratchpad {
+  color: @fg-white;
+}
+
+#scratchpad.empty {
+  background-color: transparent;
+}
+
+/* ==========================================
+   CUSTOM MODULES
+   ========================================== */
+
+#custom-pacman {
+  animation: blink 3s infinite ease-in-out;
+  font-size: 1rem;
+  font-family: "DejaVuSansM Nerd Font", "Font Awesome 6 Free";
+  color: @purple;
+}
+
+#systemd-failed-units {
+  color: @purple;
+}
+
+#systemd-failed-units.ok {
+  color: @green;
+}
+
+#systemd-failed-units.degraded {
+  color: @red1;
+}
+
+#custom-power {
+  color: @red;
+}
+
+#custom-power:hover {
+  color: @fg-white;
+  background-color: @red;
+}
+
+#custom-screenshot {
+  color: @cyan;
+}
+
+#custom-screenshot:hover {
+  color: @red;
+}
+
+/* Privacy Items */
+#privacy-item {
+  padding: 0 0.25rem;
+}
+
+#privacy-item.screenshare {
+  color: @magenta;
+  animation: blink 3s infinite ease-in-out;
+}
+
+#privacy-item.audio-in {
+  color: @green;
+  animation: blink 3s infinite ease-in-out;
+}
+
+#privacy-item.audio-out {
+  color: @blue;
+  animation: blink 3s infinite ease-in-out;
+}
+
+#backlight {
+  color: @blue;
+}
+
+/* ==========================================
+   TRAY & MENUS - FIXED VERSION
+   ========================================== */
+
+#tray>.passive {
+  -gtk-icon-effect: dim;
+  opacity: 0.7;
+}
+
+#tray>.needs-attention {
+  -gtk-icon-effect: highlight;
+  background-color: @rgba-red;
+  animation: blink 3s infinite ease-in-out;
+}
+
+menu {
+  background-color: @bg-dark;
+  border: 0.1626rem solid @green1;
+  border-radius: 0.375rem;
+  box-shadow: 0 0.125rem 0.5rem @rgba-shadow-medium;
+  padding: 0.25rem;
+  min-width: 12.5rem;
+}
+
+menuitem {
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.375rem;
+  margin: 0.125rem 0;
+  transition: all 0.15s ease;
+  color: @fg-white;
+}
+
+menuitem:hover {
+  background-color: @dark5;
+  color: @cyan;
+}
+
+menuitem:active,
+menuitem:selected {
+  background-color: @dark5;
+  color: @fg-white;
+}
+
+menuitem label {
+  color: inherit;
+  font-size: inherit;
+}
+
+separator {
+  background-color: @dark5;
+  min-height: 0.0625rem;
+  margin: 0.25rem 0;
+  border: none;
+}
+
+tooltip {
+  background-color: @bg-dark;
+  border: 0.1626rem solid @green1;
+  border-radius: 0.375rem;
+  padding: 1.8rem;
+  box-shadow: 0 0.125rem 0.5rem @rgba-shadow-medium;
+}
+
+tooltip label {
+  color: @blue1;
+}
+
+#custom-battery-mode {
+  padding: 0 0.143rem 0 0;
+}
+
+#custom-battery-mode.battery {
+  color: @green;
+}
+
+#custom-battery-mode.performance {
+  color: @red;
+}
+
+#custom-weather {
+  color: @blue0;
+  transition: color 0.3s ease;
+}
+
+#custom-github {
+  color: @green;
+  padding: 0 0.16em 0 0.15em;
+}
+
+#custom-github.new {
+  color: @yellow;
+  animation: blink-positive 2s infinite ease-in-out;
+}
+
+#custom-keyd-layer {
+  color: @green;
+  padding: 0 0.16em 0 0.15em;
+}
+/* ==========================================
+   INTERACTIVE STATES - SIMPLIFIED
+   ========================================== */
+
+/* Workspace Hover */
+#workspaces button:hover {
+  background: @terminal-black;
+  color: @fg-white;
+  transition: all 0.2s ease;
+}
+
+/* Simplified hover effects */
+#clock:hover,
+#disk:hover,
+#tray:hover,
+#idle_inhibitor:hover,
+#temperature:hover,
+#network:hover,
+#custom-media:hover,
+#mode:hover,
+#mpd:hover,
+#scratchpad:hover,
+#custom-weather:hover,
+#systemd-failed-units:hover,
+#custom-pacman:hover,
+#custom-spotify:hover,
+#privacy-item:hover,
+#language:hover,
+#keyboard-state:hover,
+#wireplumber:hover,
+#bluetooth:hover,
+#pulseaudio:hover,
+#pulseaudio-microphone:hover,
+#cava:hover,
+#power-profiles-daemon:hover,
+#backlight:hover,
+#battery:hover,
+#memory:hover,
+#cpu:hover,
+#custom-gpu_temp:hover,
+#custom-battery-mode:hover,
+#custom-keyd-layer:hover,
+#custom-github:hover,
+#mpris:hover {
+  color: @cyan;
+  background-color: @rgba-cyan;
+  transition: all 0.2s ease;
+}

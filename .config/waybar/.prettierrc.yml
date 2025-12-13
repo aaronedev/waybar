@@ -1,0 +1,12 @@
+---
+# mint additional relative links (e.g. ln -s ../../../rcfiles/.prettierrc path/to/package/.prettierrc) for any
+# other packages that need the shared Prettier config
+bracketSameLine: true
+bracketSpacing: false
+semi: false
+singleAttributePerLine: true
+singleQuote: false
+printWidth: 80
+proseWrap: always
+vueIndentScriptAndStyle: true
+trailingComma: none
