@@ -10,6 +10,7 @@
 CITY_RAW="${1:-Cologne, Germany}"
 TIMEOUT="${TIMEOUT:-10}"
 RETRIES=3
+WTTR_URL="https://wttr.in"
 
 # trim leading/trailing whitespace
 CITY_RAW="${CITY_RAW#"${CITY_RAW%%[![:space:]]*}"}"
@@ -30,21 +31,25 @@ _json_escape() {
   printf '%s' "$s"
 }
 
+_fetch_wttr() {
+  local format="$1"
+  curl -s --max-time "$TIMEOUT" "${WTTR_URL}/${CITY_QUERY}?format=${format}"
+}
+
 for _ in $(seq 1 "$RETRIES"); do
-  raw_text=$(curl -s --max-time "$TIMEOUT" "https://wttr.in/${CITY_QUERY}?format=%t") || raw_text=""
-  [[ -z "$raw_text" ]] && sleep 1 && continue
+  raw_current=$(_fetch_wttr "%t") || raw_current=""
+  [[ -z "$raw_current" ]] && sleep 1 && continue
 
-  raw_text=$(_strip_ansi "$raw_text")
-  text=$(printf '%s' "$raw_text" | tr -s '[:space:]' ' ')
-
-  raw_current=$(curl -s --max-time "$TIMEOUT" "https://wttr.in/${CITY_QUERY}?format=%t") || raw_current="(current unavailable)"
-  raw_forecast=$(curl -s --max-time "$TIMEOUT" "https://wttr.in/${CITY_QUERY}?format=Today:+%t\\nTomorrow:+%t\\nDay+after:+%t") || raw_forecast=""
+  raw_forecast=$(_fetch_wttr "Today:+%t\\nTomorrow:+%t\\nDay+after:+%t") || raw_forecast=""
 
   current=$(_strip_ansi "$raw_current")
   forecast=$(_strip_ansi "$raw_forecast")
 
   current=$(printf '%s' "$current" | sed -E 's/[[:space:]]+/ /g')
   forecast=$(printf '%s' "$forecast" | sed -E 's/[[:space:]]+/ /g')
+  text=$(printf '%s' "$current" | tr -s '[:space:]' ' ')
+
+  updated_at=$(date +'%H:%M')
 
   # Format forecast with proper alignment
   if [[ -n "$forecast" ]]; then
@@ -54,7 +59,7 @@ for _ in $(seq 1 "$RETRIES"); do
 📍 Current:    ${current}
 ${forecast_formatted}
 ━━━━━━━━━━━━━━━
-🔄 Updated: $(date +'%H:%M')
+🔄 Updated: ${updated_at}
 💡 Left-click: Open wttr.in
 🔄 Right-click: Refresh"
   else
@@ -62,7 +67,7 @@ ${forecast_formatted}
 ━━━━━━━━━━━━━━━
 📍 Current:    ${current}
 ━━━━━━━━━━━━━━━
-🔄 Updated: $(date +'%H:%M')
+🔄 Updated: ${updated_at}
 💡 Left-click: Open wttr.in
 🔄 Right-click: Refresh"
   fi
