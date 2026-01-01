@@ -199,10 +199,14 @@
       "critical": 15
     },
     "format": "{capacity}% {icon}",
+    "format-charging": "󰂄 {capacity}% {icon}",
+    "format-plugged": "󰂄 {capacity}% {icon}",
+    "format-full": "󰁹 {capacity}% {icon}",
+    "format-alt": "{time} ({capacity}%)",
     "format-icons": ["", "", "", "", ""],
     "max-length": 25,
     "tooltip": true,
-    "tooltip-format": "🔋 Battery Status\nCapacity: {capacity}%\nPower: {power}W\nTime: {time}\nCycles: {cycles}\nHealth: {health}%"
+    "tooltip-format": "🔋 Battery Status\nStatus: {status}\nCapacity: {capacity}%\nPower: {power}W\nTime: {time}\nCycles: {cycles}\nHealth: {health}%"
   },
   "bluetooth": {
     "format": "<span color='#007FFF'></span> {status}",
