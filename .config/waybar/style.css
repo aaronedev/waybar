@@ -124,6 +124,10 @@ window#waybar.hidden {
 #systemd-failed-units,
 #custom-pacman,
 #custom-spotify,
+#custom-screenshot,
+#custom-github,
+#custom-battery-mode,
+#cava,
 #mpris,
 #language,
 #keyboard-state,
@@ -134,9 +138,11 @@ window#waybar.hidden {
 #wireplumber,
 #privacy-item {
   margin: 0 0.25rem;
+  padding: 0 0.4rem;
   border-radius: 0.5625rem;
   min-width: 1.25rem;
   box-shadow: 0 0.0625rem 0.0625rem @rgba-shadow-light;
+  transition: color 0.2s ease, background-color 0.2s ease;
 }
 
 /* ==========================================
