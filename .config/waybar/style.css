@@ -229,6 +229,10 @@ window#waybar.hidden {
   animation: blink 3s infinite ease-in-out;
 }
 
+#battery.plugged {
+  color: @cyan;
+}
+
 #battery.warning:not(.charging) {
   background: @red;
   color: white;
