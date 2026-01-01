@@ -16,9 +16,11 @@
     "custom/battery-mode",
     "custom/keyd-layer",
     "wireplumber",
+    "custom/read-that",
+    "custom/transcribe-that",
     "mpris"
   ],
-  "modules-center": ["hyprland/workspaces"],
+  "modules-center": ["hyprland/workspaces", "custom/niri"],
   "modules-right": [
     "power-profiles-daemon",
     "cpu",

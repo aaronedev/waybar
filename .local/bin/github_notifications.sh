@@ -37,5 +37,10 @@ if [[ $count -eq 0 ]]; then
   out "✓" "no notifications · last checked: $now" "github-ok"
 fi
 
-tooltip=$(printf '%s' "$resp" | jq -r '.[0] | "\(.repository.full_name): \(.subject.title)"' | tr '\n' ' ')
+# Format up to 5 most recent notifications with nice spacing
+tooltip=$(printf '%s' "$resp" | jq -r '
+  limit(5; .[]) |
+  "• \(.repository.full_name):\n    \(.subject.title) (\(.subject.type))"
+')
+
 out "$count" "$tooltip" "github"

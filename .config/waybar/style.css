@@ -133,6 +133,7 @@ window#waybar.hidden {
 #pulseaudio-microphone,
 #power-profiles-daemon,
 #wireplumber,
+#custom-niri,
 #privacy-item {
   margin: 0 0.25rem;
   border-radius: 0.5625rem;
@@ -605,6 +606,34 @@ tooltip label {
   color: @green;
   padding: 0 0.16em 0 0.15em;
 }
+
+#custom-read-that {
+  color: @cyan;
+  padding: 0 0.16em 0 0.15em;
+}
+
+#custom-read-that.running {
+  color: @green;
+  animation: blink-positive 2s infinite ease-in-out;
+}
+
+#custom-read-that:hover {
+  color: @magenta;
+}
+
+#custom-transcribe-that {
+  color: @cyan;
+  padding: 0 0.16em 0 0.15em;
+}
+
+#custom-transcribe-that.running {
+  color: @green;
+  animation: blink-positive 2s infinite ease-in-out;
+}
+
+#custom-transcribe-that:hover {
+  color: @magenta;
+}
 /* ==========================================
    INTERACTIVE STATES - SIMPLIFIED
    ========================================== */
@@ -648,6 +677,9 @@ tooltip label {
 #custom-battery-mode:hover,
 #custom-keyd-layer:hover,
 #custom-github:hover,
+#custom-niri:hover,
+#custom-read-that:hover,
+#custom-transcribe-that:hover,
 #mpris:hover {
   color: @cyan;
   background-color: @rgba-cyan;

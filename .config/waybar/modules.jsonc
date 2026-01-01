@@ -375,5 +375,23 @@
     "interval": 1,
     "format": "{text}",
     "tooltip": true
+  },
+  "custom/niri": {
+    "exec": "waybar-niri-windows",
+    "return-type": "json"
+  },
+  "custom/read-that": {
+    "exec": "~/.config/waybar/scripts/read-that-status.sh",
+    "return-type": "json",
+    "interval": 1,
+    "on-click": "~/.config/waybar/scripts/toggle-read-that.sh",
+    "format": ""
+  },
+  "custom/transcribe-that": {
+    "exec": "~/.config/waybar/scripts/transcribe-that-status.sh",
+    "return-type": "json",
+    "interval": 1,
+    "on-click": "~/.config/waybar/scripts/toggle-transcribe-that.sh",
+    "format": ""
   }
 }
