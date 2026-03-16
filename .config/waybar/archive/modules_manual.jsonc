@@ -5,15 +5,14 @@
 // ╚══════════════════════════════╝
 {
   "hyprland/workspaces": {
-    // "format": "<b>{id}</b> {icon}", // ###MODE_MANUAL###
+    //"format": "<b>{id}</b> {icon}", // ###MODE_MANUAL###
     "format": "{name}", // ###MODE_AUTONAME###
     "separate-outputs": true,
     "show-special": true,
     "special-visible-only": false,
     "all-outputs": false,
-    "update-active-window": true,
-    "format-window-separator": "",
-    "window-rewrite-separator": "",
+    "format-window-separator": " ",
+    "window-rewrite-separator": " ",
     "window-rewrite": {
       "default": "",
       "class<.*firefox.*>": "<span color='#FF9500'>󰈹</span>",
@@ -49,64 +48,57 @@
       "(.*) - Visual Studio Code": "<span color='#007ACC'>󰨞</span> $1",
       "(.*) - Discord": "<span color='#7289DA'>󰙯</span> $1",
       "(.*) - Obsidian": "<span color='#a37cff'>󰴲</span> $1",
-      "(.*) - Thunar": "<span color='#8db750'>󰝰</span> $1",
-      "(.*) - Spotify": "<span color='#1ED760'></span> Spotify",
       "kitty": "<span color='#d3f2f5'>󰄛</span> Terminal",
-      "ghostty": "<span color='#fb85ac'>󰊠</span> Terminal",
-      "btop": "<span color='#00fff9'></span> System Monitor",
-      "ncdu": "<span color='#ff1a67'>󰋊</span> Disk Analyzer"
+      "wezterm": "<span color='#818dfb'>󰢱</span> Terminal",
+      "ghostty": "<span color='#fb85ac'>󰊠</span> Terminal"
     }
-  },
-  "hyprland/submap": {
-    "format": "󱄔 {}",
-    "max-length": 12,
-    "tooltip": false
-  },
-  "custom/layout": {
-    "exec": "~/.config/waybar/scripts/layout_status.sh",
-    "return-type": "json",
-    "signal": 1,
-    "on-click": "~/.config/hypr/scripts/workspace-layout-toggle.sh current",
-    "on-click-right": "~/.config/hypr/scripts/workspace-layout-toggle.sh next",
-    "format": "{}",
-    "tooltip": true
-  },
-
-  "custom/clipboard": {
-    "format": "󰅍",
-    "on-click": "copyq toggle",
-    "on-click-right": "copyq clear; dunstify -a 'Clipboard' -u low 'History Cleared'",
-    "tooltip": true,
-    "tooltip-format": "Left: Toggle History\nRight: Clear History"
-  },
-
-  "custom/chevron": {
-    "exec": "~/.config/waybar/scripts/toggle_tray.sh status",
-    "return-type": "json",
-    "on-click": "~/.config/waybar/scripts/toggle_tray.sh toggle",
-    "format": "{}",
-    "tooltip": true
   },
 
   "group/media": {
     "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 444,
+      "children-class": "drawer-media",
+      "transition-left-to-right": false
+    },
     "modules": ["wireplumber", "mpris", "mpd"]
   },
   "group/connectivity": {
     "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 444,
+      "children-class": "drawer-connectivity",
+      "transition-left-to-right": false
+    },
     "modules": ["network", "bluetooth", "backlight"]
   },
   "group/system": {
     "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 444,
+      "children-class": "drawer-system",
+      "transition-left-to-right": false
+    },
     "modules": ["cpu", "memory", "temperature", "custom/gpu_temp", "disk"]
   },
   "group/power": {
     "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 444,
+      "children-class": "drawer-power",
+      "transition-left-to-right": false
+    },
     "modules": ["battery", "custom/battery-mode", "power-profiles-daemon"]
   },
   "group/actions": {
     "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 444,
+      "children-class": "drawer-actions",
+      "transition-left-to-right": false
+    },
     "modules": [
+      "custom/power",
       "custom/screenshot",
       "custom/weather",
       "custom/github",
@@ -143,20 +135,22 @@
     "tooltip-format": "MPD (connected)\n󰀥 Album: {album}\n󰀋 Artist: {artist}\n󰝚 Title: {title}\n󰎈 Queue: {songPosition}/{queueLength}",
     "tooltip-format-disconnected": "MPD (disconnected)",
     "on-click": "mpc toggle",
-    "on-click-right": "uwsm app -- kitty --class ncmpcpp -- ncmpcpp",
+    "on-click-right": "uwsm app -- wezterm start --class ncmpcpp",
     "on-scroll-up": "mpc volume +2",
     "on-scroll-down": "mpc volume -2"
   },
   "mpris": {
     "player": "playerctld",
     "interval": 2,
-    "format": "{status_icon}",
-    "format-alt": "{status_icon} {dynamic}",
-    "format-paused": "{status_icon}",
+    "format": "{status_icon} {dynamic}",
+    "format-playing": "{status_icon} {dynamic}",
+    "format-paused": "{status_icon} {dynamic}",
+    "format-stopped": "",
+    "format-disconnected": "",
     "tooltip-format": "{title} - {artist} ({album})",
     "enable-tooltip-len-limits": true,
     "dynamic-order": ["title", "artist"],
-    "dynamic-len": 30,
+    "dynamic-len": 40,
     "ellipsis": "...",
     "status-icons": {
       "playing": "󰐊",
@@ -164,8 +158,11 @@
       "stopped": "󰓛"
     },
     "on-click": "playerctl play-pause",
+    "on-click-middle": "playerctl stop",
     "on-click-right": "playerctl next",
-    "on-click-middle": "hyprctl dispatch focuswindow spotify"
+    "on-scroll-up": "playerctl position 5+",
+    "on-scroll-down": "playerctl position 5-",
+    "escape": true
   },
   "systemd-failed-units": {
     "hide-on-ok": false,
@@ -173,7 +170,7 @@
     "format-ok": "✓",
     "system": true,
     "user": true,
-    "on-click": "uwsm app -- kitty --class systemctl -- bash -c 'echo \"System failed units:\"; systemctl --failed; echo \"\\nUser failed units:\"; systemctl --user --failed; echo \"\\n\"; exec bash'"
+    "on-click-right": "uwsm app -- wezterm start --class systemctl -- bash -c 'echo \"System failed units:\"; systemctl --failed; echo \"\\nUser failed units:\"; systemctl --user --failed; echo \"\\n\"; exec bash'"
   },
   "cava": {
     "framerate": 30,
@@ -243,8 +240,7 @@
   },
   "cpu": {
     "interval": 1,
-    "format": " {usage}% {icon0}{icon1}{icon2}{icon3}{icon4}{icon5}{icon6}{icon7}",
-    "format-alt": " {usage}% {avg_frequency}GHz",
+    "format": "{usage}% {icon0}{icon1}{icon2}{icon3}{icon4}{icon5}{icon6}{icon7}",
     "format-icons": [
       "<span color='#4bfe9b'>⣀</span>",
       "<span color='#00fff9'>⣤</span>",
@@ -257,22 +253,27 @@
     ],
     "tooltip": true,
     "tooltip-format": "CPU Usage: {usage}%\nLoad: {load}",
-    "on-click": "uwsm app -- kitty --class btop -- btop"
+    "on-click-right": "~/.local/bin/wezterm-launch.sh btop"
   },
   "memory": {
-    "interval": 10,
-    "format": " {percentage}%",
-    "format-alt": " {used:0.1f}G/{total:0.1f}G",
-    "on-click": "uwsm app -- kitty --class watch -- watch free -h",
+    "interval": 30,
+    "format": "{used:0.1f}G/{total:0.1f}G",
+    "format-alt": "{percentage}%",
+    "states": {
+      "low": 0,
+      "medium": 50,
+      "high": 80,
+      "critical": 90
+    },
+    "on-click-right": "uwsm app -- wezterm start --class watch -- watch free -h",
     "tooltip": true,
     "tooltip-format": "󰆼 Memory Usage\n RAM: {used:0.1f}G used of {total:0.1f}G ({percentage}%)\n󰘚 Swap: {swapUsed:0.1f}G used of {swapTotal:0.1f}G ({swapPercentage}%)\n󰁝 Available: {avail:0.1f}G"
   },
   "temperature": {
     "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
     "critical-threshold": 80,
-    "format": " {temperatureC}°C",
-    "format-alt": " {temperatureC}°C ",
-    "format-critical": " {temperatureC}°C",
+    "format": "{temperatureC}°C ",
+    "format-critical": "{temperatureC}°C ",
     "tooltip": true,
     "states": {
       "normal": 45,
@@ -283,18 +284,16 @@
     "tooltip-format": "🌡 CPU Temperature\nCurrent: {temperatureC}°C\n🟢 Idle: <45°C\n🔵 Light: 45-65°C\n🟣 Heavy: 65-80°C\n🔴 Critical: >80°C"
   },
   "custom/gpu_temp": {
-    "exec": "load=$(cat /sys/class/drm/card1/device/gpu_busy_percent 2>/dev/null || echo 0); temp=$(sensors amdgpu-pci-2d00 | awk '/edge:/ {gsub(/[+\\°C]/,\"\", $2); print $2}'); echo \"$load% $temp\"",
+    "exec": "sensors amdgpu-pci-2d00 | awk '/edge:/ {gsub(/\\+/,\"\", $2); print $2}'",
     "interval": 5,
     "return-type": "plain",
-    "format": "󰢮 {}°C",
-    "format-alt": "󰢮 GPU {}°C",
+    "format": "GPU {}°C", // <= exactly two braces, matching pair
     "tooltip": true,
-    "tooltip-format": "GPU load and edge temperature"
+    "tooltip-format": "GPU edge temperature"
   },
   "backlight": {
     "device": "intel_backlight",
-    "format": "{icon} {percent}%",
-    "format-alt": "{icon} Level: {percent}%",
+    "format": "{percent}% {icon}",
     "format-icons": ["󱩎", "󱩏", "󱩐", "󱩑", "󱩒", "󱩓", "󱩔", "󱩕", "󱩖", "󰛨"],
     "tooltip": true,
     "tooltip-format": "💡 Display Brightness\nLevel: {percent}%"
@@ -305,18 +304,16 @@
       "warning": 30,
       "critical": 15
     },
-    "format": "{icon} {capacity}%",
-    "format-alt": "{icon} {capacity}% ({time}) {power}W",
+    "format": "{capacity}% {icon}",
     "format-icons": ["", "", "", "", ""],
     "max-length": 25,
     "tooltip": true,
     "tooltip-format": "🔋 Battery Status\nCapacity: {capacity}%\nPower: {power}W\nTime: {time}\nCycles: {cycles}\nHealth: {health}%"
   },
   "bluetooth": {
-    "format": "",
-    "format-connected": " {num_connections}",
-    "format-connected-battery": " {device_battery_percentage}%",
-    "format-alt": " {status}",
+    "format": "<span color='#007FFF'></span> {status}",
+    "format-connected": "<span color='#007FFF'></span> {device_alias}",
+    "format-connected-battery": "<span color='#007FFF'></span> {device_alias} {device_battery_percentage}%",
     "format-no-controller": "",
     "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
     "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
@@ -326,31 +323,32 @@
   },
   "network": {
     "interval": 5,
-    "format-wifi": "",
-    "format-ethernet": "󰈀",
-    "format-linked": "󰖪",
-    "format-disconnected": "󰤭",
-    "format-disabled": "󰤮",
-    "format-alt": "{ifname}: {ipaddr}/{cidr} 󰩟 {bandwidthDownBytes} 󰕒 {bandwidthUpBytes}",
+    "format": "{ifname}",
+    "format-wifi": "{essid} ({signalStrength}%)",
+    "format-ethernet": "{ipaddr}/{cidr}",
+    "format-linked": "󰖪 {ifname} (No IP)",
+    "format-disconnected": "󰤭 Disconnected",
+    "format-disabled": "󰤮 Disabled",
+    "format-alt": "󰩟 {bandwidthDownBytes} 󰕒 {bandwidthUpBytes}",
     "tooltip-format": "Interface: {ifname}\nIP: {ipaddr}/{cidr}\nGateway: {gwaddr}\nNetmask: {netmask}",
     "tooltip-format-wifi": "Network: {essid} ({signalStrength}%)\nSignal: {signaldBm} dBm\nFrequency: {frequency} GHz\nIP: {ipaddr}/{cidr}\nGateway: {gwaddr}\nNetmask: {netmask}\n\nBandwidth:\n󰕒 Up: {bandwidthUpBytes}/s ({bandwidthUpBits} bps)\n󰩟 Down: {bandwidthDownBytes}/s ({bandwidthDownBits} bps)\n󰑓 Total: {bandwidthTotalBytes}/s",
     "tooltip-format-ethernet": "Ethernet Connection\nInterface: {ifname}\nIP: {ipaddr}/{cidr}\nGateway: {gwaddr}\nNetmask: {netmask}\nCIDR: /{cidr}\n\nBandwidth:\n󰕒 Up: {bandwidthUpBytes}/s ({bandwidthUpBits} bps)\n󰩟 Down: {bandwidthDownBytes}/s ({bandwidthDownBits} bps)\n󰑓 Total: {bandwidthTotalBytes}/s",
     "tooltip-format-linked": "Interface: {ifname}\nStatus: Connected but no IP assigned\nCheck your network configuration",
     "tooltip-format-disconnected": "Network Disconnected\nNo active network connection\nClick to open network manager",
-    "on-click": "nm-connection-editor",
+    "tooltip-format-disabled": "Network Interface Disabled\nNetwork hardware is turned off",
+    "on-click-right": "nm-connection-editor",
     "max-length": 50
   },
   "wireplumber": {
     "format": "{icon} {volume}%",
-    "format-alt": "{icon} Output: {node_name}",
     "format-muted": "󰝟 Muted",
     "on-click": "pavucontrol -t 3",
-    "on-click-right": "~/.config/waybar/scripts/cycle_audio.sh",
     "format-icons": ["", "", ""],
     "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 3%+",
     "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 3%-",
     "smooth-scrolling-threshold": 1,
     "scroll-step": 1,
+    "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
     "on-click-middle": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 50%",
     "reverse-scrolling": 1,
     "states": {
@@ -366,7 +364,6 @@
   },
   "power-profiles-daemon": {
     "format": "{icon}",
-    "format-alt": "{icon} {profile}",
     "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
     "tooltip": true,
     "format-icons": {
@@ -390,7 +387,7 @@
   "disk": {
     "interval": 30,
     "format": "󰋊 {percentage_used}%",
-    "format-alt": "󰋊 {used}/{total} free: {free}",
+    "format-alt": "󰋊 {free} ({percentage_free}%)",
     "path": "/",
     "tooltip": true,
     "tooltip-format": "Disk usage (/)\n󰉋 Available: {free} ({percentage_free}%)\n󰈀 Total: {total}\n󰉌 Used: {used} ({percentage_used}%)",
@@ -400,8 +397,8 @@
       "high": 70,
       "critical": 90
     },
-    "on-click": "uwsm app -- kitty --class btop -- btop",
-    "on-click-right": "uwsm app -- kitty --class ncdu -- ncdu --color dark ~/"
+    "on-click-middle": "uwsm app -- wezterm start --class btop",
+    "on-click-right": "uwsm app -- wezterm start --class ncdu -- ncdu --color dark ~/"
   },
   "privacy": {
     "icon-spacing": 2,
@@ -435,16 +432,15 @@
   "custom/weather": {
     "exec": "~/.local/bin/get_weather.sh Cologne+Germany",
     "return-type": "json",
-    "format": "",
-    "format-alt": " {}",
+    "format": "{}",
     "tooltip": true,
     "interval": 3600,
     "on-click": "xdg-open 'https://wttr.in/Cologne+Germany'",
     "on-click-right": "~/.local/bin/get_weather.sh Cologne+Germany"
   },
   "custom/github": {
-    "format": "",
-    "format-alt": " {}",
+    "format": " {}",
+    "format-new": " {}",
     "return-type": "json",
     "interval": 60,
     "exec": "~/.local/bin/github_notifications.sh",
@@ -489,12 +485,5 @@
     "interval": 1,
     "on-click": "~/.config/waybar/scripts/toggle-transcribe-that.sh",
     "format": "󰍰"
-  },
-    "custom/yubikey": {
-    "exec": "yubikey-touch-detector --stdout",
-    "return-type": "plain",
-    "format": "{}",
-    "restart-interval": 1,
-    "on-click": "pkill -SIGUSR1 yubikey-touch-detector"
-}
+  }
 }

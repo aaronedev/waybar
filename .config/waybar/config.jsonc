@@ -1,37 +1,32 @@
 {
   "include": ["~/.config/waybar/modules.jsonc"],
   "position": "top",
-  "layer": "bottom",
-  "margin": 1,
-  "spacing": 1,
+  "layer": "top",
+  "margin": 3,
+  "spacing": 0,
   "reload_style_on_change": true,
   "modules-left": [
+    "custom/chevron",
     "tray",
+    "custom/clipboard",
+    "custom/yubikey",
     "idle_inhibitor",
-    "custom/github",
-    "bluetooth",
-    "backlight",
-    "network",
-    "battery",
-    "custom/battery-mode",
     "custom/keyd-layer",
-    "wireplumber",
-    "custom/read-that",
-    "custom/transcribe-that",
-    "mpris"
+    "group/media",
+    "group/connectivity"
   ],
-  "modules-center": ["hyprland/workspaces", "custom/niri"],
+  "modules-center": [
+    "hyprland/workspaces",
+    "custom/layout",
+    "hyprland/window",
+    "hyprland/submap"
+  ],
   "modules-right": [
-    "power-profiles-daemon",
-    "cpu",
-    "custom/gpu_temp",
-    "temperature",
-    "memory",
-    "disk",
-    "custom/screenshot",
-    "custom/weather",
-    "clock",
+    "group/system",
+    "group/power",
+    "group/actions",
     "systemd-failed-units",
+    "clock",
     "custom/power"
   ]
 }

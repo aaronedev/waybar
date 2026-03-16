@@ -50,6 +50,7 @@
 @define-color rgba-orange rgba(255, 124, 126, 0.3);
 @define-color rgba-cyan rgba(0, 255, 249, 0.1);
 @define-color rgba-bg rgba(0, 0, 0, 0.33);
+@define-color rgba-bg-opaque rgba(0, 0, 0, 0.85);
 @define-color rgba-shadow rgba(0, 0, 0, 0.5);
 @define-color rgba-shadow-light rgba(0, 0, 0, 0.2);
 @define-color rgba-shadow-heavy rgba(0, 0, 0, 0.6);

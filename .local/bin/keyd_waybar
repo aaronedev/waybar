@@ -8,11 +8,11 @@ if [[ -r $STATE_FILE ]]; then
   layer="$(<"$STATE_FILE")"
 fi
 
-icon=""
-short="M"
+icon=""
+short="󰌌"
 
 case "$layer" in
-nav) short="N" ;;
+nav) short="󰍽" ;;
 numpad) short="#" ;;
 hyper) short="H" ;;
 esac
