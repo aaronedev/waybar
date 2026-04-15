@@ -4,7 +4,6 @@
 /* ║ ░▀▀▀░░▀░░░▀░░▀▀▀░▀▀▀░▀▀▀ ║ */
 /* ╚══════════════════════════╝ */
 @import "themes/violet-void-theme_waybar.css";
-@import "tray-state.css";
 
 /* ==========================================
   ANIMATIONS keyframes
@@ -69,9 +68,6 @@ window#waybar.hidden {
   opacity: 0.2;
 }
 
-#window {
-}
-
 /* make window module transparent when no windows present */
 window#waybar.empty #window {
   background-color: transparent;
@@ -80,8 +76,8 @@ window#waybar.empty #window {
 #submap {
   background-color: @red;
   color: @fg-white;
-  padding: 0 0.8rem;
-  margin: 0 0.2rem;
+  padding: 0 0.7rem;
+  margin: 0 0.08rem;
   border-radius: 0.5625rem;
   font-weight: bold;
   animation: blink 2s infinite ease-in-out;
@@ -92,15 +88,15 @@ window#waybar.empty #window {
    ========================================== */
 
 #workspaces {
-  margin: 0 0.1875rem;
-  padding: 0 0.125rem;
+  margin: 0 0.08rem;
+  padding: 0.08rem 0.0625rem;
 }
 
 #workspaces button {
   color: @blue1;
-  padding: 0 0.5rem;
-  border-radius: 0.25rem;
-  margin: 0 0.125rem;
+  padding: 0.12rem 0.5rem;
+  border-radius: 0.35rem;
+  margin: 0.05rem 0.08rem;
   min-width: 1.8rem; /* Consistent hit area */
   transition: all 0.2s ease;
 }
@@ -149,7 +145,13 @@ window#waybar.empty #window {
 #custom-pacman,
 #custom-spotify,
 #custom-clipboard,
-#custom-chevron,
+#custom-keyd-layer,
+#custom-layout,
+#custom-lid,
+#custom-battery-mode,
+#custom-screenshot,
+#custom-read-that,
+#custom-transcribe-that,
 #tray,
 /* Removed #custom-yubikey from here to prevent ghost margins */
 #mpris,
@@ -161,9 +163,10 @@ window#waybar.empty #window {
 #power-profiles-daemon,
 #wireplumber,
 #window,
+#submap,
 #privacy-item {
   margin: 0;
-  padding: 0 0.12rem;
+  padding: 0 0.16rem;
   border-radius: 0.5625rem;
   min-width: 1.25rem;
   box-shadow: none;
@@ -171,22 +174,20 @@ window#waybar.empty #window {
 
 #custom-layout {
   color: @purple;
-  padding: 0 0.6rem;
-  margin: 0 0.1rem;
+  margin: 0 0.08rem;
   font-weight: bold;
-  border-radius: 0.5625rem;
   background-color: @rgba-shadow-light;
 }
 
-#custom-layout.dwindle { color: @green; }
-#custom-layout.master { color: @magenta; }
+#custom-layout.dwindle { color: @green1; }
+#custom-layout.master { color: @orange; }
 #custom-layout.hy3 { color: @cyan; }
-#custom-layout.scrolling { color: @yellow; }
-#custom-layout.monocle { color: @red; }
+#custom-layout.scrolling { color: @magenta2; }
+#custom-layout.monocle { color: @blue5; }
 
 #window {
-  margin: 0 0.1rem;
-  padding: 0 0.8rem;
+  margin: 0 0.08rem;
+  padding: 0 0.7rem;
   background-color: @rgba-shadow-light;
   border-radius: 0.5625rem;
   color: @blue1;
@@ -194,7 +195,7 @@ window#waybar.empty #window {
 }
 
 /* ==========================================
-   GROUP STYLES
+   GROUP STYLES & DRAWERS
    ========================================== */
 
 #group-media,
@@ -204,7 +205,7 @@ window#waybar.empty #window {
 #group-actions {
   background-color: @rgba-shadow-light;
   border-radius: 0.75rem;
-  padding: 0 0.12rem;
+  padding: 0 0.14rem;
   margin: 0 0.1rem;
   box-shadow: 0 0.0625rem 0.125rem @rgba-shadow-light;
 }
@@ -217,12 +218,34 @@ window#waybar.empty #window {
   background-color: @rgba-shadow-medium;
 }
 
+/* Drawer transitions */
+#group-connectivity,
+#group-system,
+#group-power,
+#group-actions {
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.connectivity-child,
+.system-child,
+.power-child,
+.actions-child {
+  padding: 0 0.2rem;
+  margin: 0 0.1rem;
+  transition: opacity 0.3s ease;
+}
+
 /* ==========================================
    AUDIO & VOLUME
    ========================================== */
 
-#wireplumber {
-  padding: 0 0.0em 0 0.2em;
+#privacy {
+  padding: 0 0.5rem;
+}
+
+#privacy-item {
+  padding: 0 0.25rem;
+  font-size: 1.1rem;
 }
 
 #wireplumber.muted {
@@ -251,6 +274,7 @@ window#waybar.empty #window {
   color: @red1;
   animation: blink 3s infinite ease-in-out;
   background-color: @rgba-red;
+  padding: 0 0.08rem;
 }
 
 #cava {
@@ -305,6 +329,7 @@ window#waybar.empty #window {
   background: @red;
   color: white;
   animation: blink 3s infinite ease-in-out;
+  padding: 0 0.08rem;
 }
 
 /* CPU States */
@@ -332,11 +357,13 @@ window#waybar.empty #window {
 #memory.high {
   color: @red;
   animation: blink 3s infinite ease-in-out;
+  padding: 0 0.08rem;
 }
 
 #memory.critical {
   color: @red1;
   animation: blink 3s infinite ease-in-out;
+  padding: 0 0.08rem;
 }
 
 #temperature {
@@ -359,6 +386,7 @@ window#waybar.empty #window {
   color: @red1;
   animation: blink 3s infinite ease-in-out;
   background-color: @rgba-red;
+  padding: 0 0.08rem;
 }
 
 /* Disk States */
@@ -373,11 +401,13 @@ window#waybar.empty #window {
 #disk.high {
   color: @red1;
   animation: blink 3s infinite ease-in-out;
+  padding: 0 0.08rem;
 }
 
 #disk.critical {
   color: @red1;
   animation: blink 3s infinite ease-in-out;
+  padding: 0 0.08rem;
 }
 
 /* Power Profiles */
@@ -403,22 +433,95 @@ window#waybar.empty #window {
    ========================================= */
 
 #mpris {
-  color: @green;
+  color: @blue1;
+  min-width: 0;
+  padding: 0;
+  background-color: transparent;
+  transition: all 0.2s ease;
+}
+
+#mpris.playing,
+#mpris.paused,
+#mpris.stopped {
+  min-width: 1.25rem;
   padding: 0 0.6rem;
 }
 
 #mpris.playing {
+  color: @magenta;
+  background-color: @rgba-magenta;
+  text-shadow: 0 0 0.4rem @rgba-magenta2;
+}
+
+#mpris.paused {
+  color: @purple;
+  background-color: @rgba-shadow-light;
+}
+
+#mpris.stopped {
+  color: @comment;
+  background-color: transparent;
+}
+
+#mpris.spotify {
+  color: @magenta2;
+}
+
+#mpris.firefox,
+#mpris.chromium,
+#mpris.brave,
+#mpris.qutebrowser {
+  color: @blue0;
+}
+
+#mpris.vlc,
+#mpris.mpv,
+#mpris.celluloid {
+  color: @orange;
+}
+
+#mpris.mpd,
+#mpris.playerctld {
+  color: @green1;
+}
+
+#mpris.playing.spotify {
+  background-color: @rgba-magenta2;
+}
+
+#mpris.playing.firefox,
+#mpris.playing.chromium,
+#mpris.playing.brave,
+#mpris.playing.qutebrowser {
+  background-color: @rgba-cyan;
+  text-shadow: 0 0 0.4rem @rgba-cyan;
+}
+
+#mpris.playing.vlc,
+#mpris.playing.mpv,
+#mpris.playing.celluloid {
+  background-color: @rgba-orange;
+  text-shadow: none;
+}
+
+#mpris.playing.mpd,
+#mpris.playing.playerctld {
+  background-color: @rgba-green;
   color: @green;
   text-shadow: 0 0 0.4rem @rgba-green;
 }
 
-#mpris.paused {
-  color: @comment;
-}
-
-#mpris.stopped {
-  color: @red;
-  animation: blink 3s infinite ease-in-out;
+#mpris.paused.spotify,
+#mpris.paused.firefox,
+#mpris.paused.chromium,
+#mpris.paused.brave,
+#mpris.paused.qutebrowser,
+#mpris.paused.vlc,
+#mpris.paused.mpv,
+#mpris.paused.celluloid,
+#mpris.paused.mpd,
+#mpris.paused.playerctld {
+  background-color: @rgba-shadow-medium;
 }
 
 /* MPD */
@@ -429,10 +532,19 @@ window#waybar.empty #window {
 
 #mpd.disconnected {
   color: @red1;
+  background-color: @rgba-red;
 }
 
 #mpd.stopped {
-  color: @dark5;
+  color: @comment;
+  background-color: transparent;
+  min-width: 0;
+  padding: 0 0.3rem;
+}
+
+#mpd.error {
+  color: @red;
+  background-color: @rgba-red;
 }
 
 #mpd.paused {
@@ -459,7 +571,7 @@ window#waybar.empty #window {
    ========================================== */
 
 #network {
-  padding: 0 0.3em 0 0em;
+  padding: 0 0.4rem 0 0.2rem;
   color: @green;
 }
 
@@ -494,6 +606,7 @@ window#waybar.empty #window {
 
 #clock {
   color: @cyan;
+  padding: 0 0.55rem 0 0.45rem;
 }
 
 #idle_inhibitor {
@@ -506,7 +619,12 @@ window#waybar.empty #window {
 }
 
 #language {
-  color: @blue;
+  color: @blue7;
+  font-weight: bold;
+  padding: 0 0.3rem;
+  margin: 0 0.08rem;
+  background-color: @rgba-shadow-light;
+  border-radius: 0.5625rem;
 }
 
 #keyboard-state {
@@ -539,6 +657,7 @@ window#waybar.empty #window {
 
 #systemd-failed-units {
   color: @purple;
+  padding: 0 0.4rem 0 0.32rem;
 }
 
 #systemd-failed-units.ok {
@@ -567,10 +686,6 @@ window#waybar.empty #window {
 }
 
 /* Privacy Indicators */
-#privacy-item {
-  padding: 0 0.25rem;
-}
-
 #privacy-item.screenshare {
   color: @magenta;
   animation: blink 3s infinite ease-in-out;
@@ -598,8 +713,8 @@ window#waybar.empty #window {
 
 #custom-yubikey {
   color: @purple;
-  padding: 0 0.5rem;
-  margin: 0 0.25rem;
+  padding: 0 0.42rem;
+  margin: 0 0.16rem;
   border-radius: 0.5625rem;
   box-shadow: none;
   /* Blink effect */
@@ -611,15 +726,29 @@ window#waybar.empty #window {
    TRAY & MENUS - FIXED VERSION
    ========================================== */
 
+#tray widget>image {
+  padding: 0 0.06rem;
+}
+
+#tray widget>image:hover {
+  -gtk-icon-effect: highlight;
+  transition: all 0.2s ease;
+}
+
 #tray>.passive {
   -gtk-icon-effect: dim;
-  opacity: 0.7;
+  opacity: 0.65;
 }
 
 #tray>.needs-attention {
   -gtk-icon-effect: highlight;
   background-color: @rgba-red;
   animation: blink 3s infinite ease-in-out;
+}
+
+#tray>.active {
+  -gtk-icon-effect: none;
+  opacity: 1;
 }
 
 menu {
@@ -679,6 +808,18 @@ tooltip label {
   padding: 0 0.143rem 0 0;
 }
 
+#custom-lid {
+  padding: 0 0.4rem;
+}
+
+#custom-lid.inhibited {
+  color: @red;
+}
+
+#custom-lid.active {
+  color: @green;
+}
+
 #custom-battery-mode.battery {
   color: @green;
 }
@@ -704,7 +845,7 @@ tooltip label {
 
 #custom-keyd-layer {
   color: @green;
-  padding: 0 0.4rem;
+  padding: 0 0.26rem;
 }
 
 #custom-read-that {
@@ -729,22 +870,56 @@ tooltip label {
   text-shadow: 0 0 0.5rem @rgba-red;
 }
 
-#custom-chevron {
-  color: @blue1;
-  padding: 0 0.1rem 0 0.3rem;
-}
-
-#custom-chevron.visible {
-  color: @green;
-}
-
-#custom-chevron.hidden {
-  color: @red;
-}
-
 #custom-clipboard {
   color: @purple;
-  padding: 0 0.4rem;
+  padding: 0 0.26rem;
+}
+
+#group-media,
+#group-connectivity {
+  padding-left: 0.1rem;
+  padding-right: 0.1rem;
+  margin-left: 0.08rem;
+  margin-right: 0.08rem;
+}
+
+#tray,
+#idle_inhibitor,
+#bluetooth,
+#backlight,
+#battery,
+#power-profiles-daemon,
+#custom-lid,
+#custom-battery-mode,
+#custom-layout,
+#custom-screenshot,
+#custom-keyd-layer,
+#cpu,
+#memory,
+#temperature,
+#custom-gpu_temp,
+#disk,
+#custom-weather,
+#custom-github,
+#custom-read-that,
+#custom-transcribe-that,
+#custom-clipboard,
+#network,
+#wireplumber,
+#mpris,
+#mpd,
+#clock,
+#pulseaudio,
+#pulseaudio-microphone,
+#systemd-failed-units,
+#custom-pacman,
+#scratchpad,
+#language,
+#keyboard-state,
+#submap,
+#mode {
+  padding-left: 0.3rem;
+  padding-right: 0.3rem;
 }
 
 /* ==========================================
@@ -785,6 +960,9 @@ tooltip label {
 #power-profiles-daemon:hover,
 #backlight:hover,
 #battery:hover,
+#custom-lid:hover,
+#custom-layout:hover,
+#custom-screenshot:hover,
 #memory:hover,
 #cpu:hover,
 #custom-gpu_temp:hover,
@@ -792,6 +970,7 @@ tooltip label {
 #custom-keyd-layer:hover,
 #custom-github:hover,
 #window:hover,
+#submap:hover,
 #custom-read-that:hover,
 #custom-transcribe-that:hover,
 #mpris:hover {

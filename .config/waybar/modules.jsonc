@@ -32,6 +32,11 @@
       "class<.*gimp.*>": "<span color='#FF8A00'></span>",
       "class<.*Bitwarden.*>": "<span color='#5f93f8'></span>",
       "class<.*obsidian.*>": "<span color='#a37cff'>󰴲</span>",
+      "class<.*rofi.*>": "<span color='#70c8ff'></span>",
+      "class<.*pavucontrol.*>": "<span color='#42ff97'>󰕾</span>",
+      "class<.*nm-connection-editor.*>": "<span color='#29adff'>󰤨</span>",
+      "class<.*blueman-manager.*>": "<span color='#29adff'></span>",
+      "class<.*qalculate.*>": "<span color='#bb7cff'>󰑫</span>",
       "title<.*youtube.*>": "<span color='#CE5252'>󰑈</span>",
       "title<.*github.*>": "<span color='#f0f6fc'></span>"
     },
@@ -42,7 +47,7 @@
 
   "hyprland/window": {
     "format": "{title}",
-    "max-length": 40,
+    "max-length": 20,
     "separate-outputs": true,
     "rewrite": {
       "(.*) — Mozilla Firefox": "<span color='#FF9500'>󰈹</span> $1",
@@ -80,14 +85,6 @@
     "tooltip-format": "Left: Toggle History\nRight: Clear History"
   },
 
-  "custom/chevron": {
-    "exec": "~/.config/waybar/scripts/toggle_tray.sh status",
-    "return-type": "json",
-    "on-click": "~/.config/waybar/scripts/toggle_tray.sh toggle",
-    "format": "{}",
-    "tooltip": true
-  },
-
   "group/media": {
     "orientation": "inherit",
     "modules": ["wireplumber", "mpris", "mpd"]
@@ -98,14 +95,24 @@
   },
   "group/system": {
     "orientation": "inherit",
-    "modules": ["cpu", "memory", "temperature", "custom/gpu_temp", "disk"]
+    "drawer": {
+      "transition-duration": 500,
+      "children-class": "system-child",
+      "transition-left-to-right": false
+    },
+    "modules": ["cpu", "memory", "custom/gpu_temp", "disk"]
   },
   "group/power": {
     "orientation": "inherit",
-    "modules": ["battery", "custom/battery-mode", "power-profiles-daemon"]
+    "modules": ["custom/lid", "battery", "custom/battery-mode", "power-profiles-daemon"]
   },
   "group/actions": {
     "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 500,
+      "children-class": "actions-child",
+      "transition-left-to-right": false
+    },
     "modules": [
       "custom/screenshot",
       "custom/weather",
@@ -118,7 +125,7 @@
   "mpd": {
     "format": "{stateIcon} {artist} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S})",
     "format-disconnected": "󰎊 Disconnected",
-    "format-stopped": "󰓛 Stopped",
+    "format-stopped": "󰓛",
     "interval": 10,
     "max-length": 40,
     "ellipsis": "...",
@@ -168,6 +175,7 @@
     "on-click-middle": "hyprctl dispatch focuswindow spotify"
   },
   "systemd-failed-units": {
+    "interval": 30,
     "hide-on-ok": false,
     "format": "✗ {nr_failed}",
     "format-ok": "✓",
@@ -207,11 +215,20 @@
     "tooltip-format": "🚫 Idle Inhibitor\nStatus: {status}\nPrevents system sleep when activated"
   },
   "tray": {
-    "icon-size": 20,
-    "spacing": 4,
+    "icon-size": 21,
+    "spacing": 8,
     "show-passive-items": true,
+    "smooth-scrolling-threshold": 1.0,
+    "icons": {
+      "blueman": "bluetooth",
+      "discord": "discord",
+      "vesktop": "discord",
+      "telegram-desktop": "telegram",
+      "spotify": "spotify",
+      "nm-applet": "network-wireless"
+    },
     "tooltip": true,
-    "tooltip-format": "📋 System Tray\nIcon size: 20px\nShowing passive items: true"
+    "tooltip-format": "📋 System Tray\nIcon size: 21px\nSpacing: 8px"
   },
   "clock": {
     "interval": 60,
@@ -242,7 +259,7 @@
     }
   },
   "cpu": {
-    "interval": 1,
+    "interval": 2,
     "format": " {usage}% {icon0}{icon1}{icon2}{icon3}{icon4}{icon5}{icon6}{icon7}",
     "format-alt": " {usage}% {avg_frequency}GHz",
     "format-icons": [
@@ -261,29 +278,13 @@
   },
   "memory": {
     "interval": 10,
-    "format": " {percentage}%",
-    "format-alt": " {used:0.1f}G/{total:0.1f}G",
-    "on-click": "uwsm app -- kitty --class watch -- watch free -h",
+    "format": " {percentage}%",
+    "format-alt": " {used:0.1f}G/{total:0.1f}G",
     "tooltip": true,
     "tooltip-format": "󰆼 Memory Usage\n RAM: {used:0.1f}G used of {total:0.1f}G ({percentage}%)\n󰘚 Swap: {swapUsed:0.1f}G used of {swapTotal:0.1f}G ({swapPercentage}%)\n󰁝 Available: {avail:0.1f}G"
   },
-  "temperature": {
-    "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
-    "critical-threshold": 80,
-    "format": " {temperatureC}°C",
-    "format-alt": " {temperatureC}°C ",
-    "format-critical": " {temperatureC}°C",
-    "tooltip": true,
-    "states": {
-      "normal": 45,
-      "warm": 65,
-      "hot": 80,
-      "critical": 85
-    },
-    "tooltip-format": "🌡 CPU Temperature\nCurrent: {temperatureC}°C\n🟢 Idle: <45°C\n🔵 Light: 45-65°C\n🟣 Heavy: 65-80°C\n🔴 Critical: >80°C"
-  },
   "custom/gpu_temp": {
-    "exec": "load=$(cat /sys/class/drm/card1/device/gpu_busy_percent 2>/dev/null || echo 0); temp=$(sensors amdgpu-pci-2d00 | awk '/edge:/ {gsub(/[+\\°C]/,\"\", $2); print $2}'); echo \"$load% $temp\"",
+    "exec": "temp=$(sensors -j 2>/dev/null | jq -r 'to_entries[] | select(.key | test(\"amdgpu|k10temp\"; \"i\")) | .value | to_entries[] | select(.key | test(\"edge|Tctl|Tdie|Composite\"; \"i\")) | .value | to_entries[] | select(.key | test(\"input\")) | .value' 2>/dev/null | head -1); load=$(cat /sys/class/drm/card*/device/gpu_busy_percent 2>/dev/null | head -1 || echo 0); echo \"${load}% ${temp:-N/A}\"",
     "interval": 5,
     "return-type": "plain",
     "format": "󰢮 {}°C",
@@ -296,6 +297,8 @@
     "format": "{icon} {percent}%",
     "format-alt": "{icon} Level: {percent}%",
     "format-icons": ["󱩎", "󱩏", "󱩐", "󱩑", "󱩒", "󱩓", "󱩔", "󱩕", "󱩖", "󰛨"],
+    "on-scroll-up": "brightnessctl set 1%+",
+    "on-scroll-down": "brightnessctl set 1%-",
     "tooltip": true,
     "tooltip-format": "💡 Display Brightness\nLevel: {percent}%"
   },
@@ -326,8 +329,8 @@
   },
   "network": {
     "interval": 5,
-    "format-wifi": "",
-    "format-ethernet": "󰈀",
+    "format-wifi": "  {bandwidthDownBytes:>6}",
+    "format-ethernet": "󰈀 {bandwidthDownBytes:>6}",
     "format-linked": "󰖪",
     "format-disconnected": "󰤭",
     "format-disabled": "󰤮",
@@ -351,7 +354,7 @@
     "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 3%-",
     "smooth-scrolling-threshold": 1,
     "scroll-step": 1,
-    "on-click-middle": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 50%",
+    "on-click-middle": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
     "reverse-scrolling": 1,
     "states": {
       "muted": 0,
@@ -376,6 +379,7 @@
       "power-saver": ""
     }
   },
+  /*
   "custom/spotify": {
     "exec": "scripts/mediaplayer.py --player spotify 2> /dev/null",
     "return-type": "json",
@@ -387,6 +391,7 @@
     "on-click-right": "playerctl -p spotify previous",
     "max-length": 40
   },
+  */
   "disk": {
     "interval": 30,
     "format": "󰋊 {percentage_used}%",
@@ -453,7 +458,7 @@
   "custom/battery-mode": {
     "exec": "~/.config/hypr/scripts/battery-status.sh",
     "return-type": "json",
-    "interval": 2,
+    "interval": 5,
     "on-click": "~/.config/hypr/scripts/battery_toggle.sh",
     "format": "{}"
   },
@@ -468,33 +473,43 @@
   "custom/keyd-layer": {
     "exec": "~/.local/bin/keyd_waybar",
     "return-type": "json",
-    "interval": 1,
+    "interval": 5,
     "format": "{text}",
     "tooltip": true
   },
+  /*
   "custom/niri": {
     "exec": "waybar-niri-windows",
     "return-type": "json"
   },
+  */
   "custom/read-that": {
     "exec": "~/.config/waybar/scripts/read-that-status.sh",
     "return-type": "json",
-    "interval": 1,
+    "interval": 5,
     "on-click": "~/.config/waybar/scripts/toggle-read-that.sh",
     "format": "󰑇"
   },
   "custom/transcribe-that": {
     "exec": "~/.config/waybar/scripts/transcribe-that-status.sh",
     "return-type": "json",
-    "interval": 1,
+    "interval": 5,
     "on-click": "~/.config/waybar/scripts/toggle-transcribe-that.sh",
     "format": "󰍰"
   },
-    "custom/yubikey": {
-    "exec": "yubikey-touch-detector --stdout",
-    "return-type": "plain",
+  "custom/lid": {
+    "exec": "~/.config/waybar/scripts/lid-status.sh",
+    "return-type": "json",
+    "interval": 5,
+    "signal": 11,
+    "on-click": "~/.config/waybar/scripts/lid-toggle.sh",
+    "format": "{}"
+  },
+  "hyprland/language": {
     "format": "{}",
-    "restart-interval": 1,
-    "on-click": "pkill -SIGUSR1 yubikey-touch-detector"
-}
+    "format-en": "EN",
+    "format-de": "DE",
+    "keyboard-name": "keyd-virtual-keyboard",
+    "on-click": "hyprctl switchxkblayout keyd-virtual-keyboard next"
+  }
 }

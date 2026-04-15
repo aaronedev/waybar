@@ -2,26 +2,24 @@
   "include": ["~/.config/waybar/modules.jsonc"],
   "position": "top",
   "layer": "top",
-  "margin": 3,
-  "spacing": 0,
-  "reload_style_on_change": true,
+  "reload_style_on_change": false,
   "modules-left": [
-    "custom/chevron",
-    "tray",
     "custom/clipboard",
-    "custom/yubikey",
+    "tray",
     "idle_inhibitor",
     "custom/keyd-layer",
     "group/media",
-    "group/connectivity"
+    "group/connectivity",
+    "hyprland/window"
   ],
   "modules-center": [
     "hyprland/workspaces",
     "custom/layout",
-    "hyprland/window",
+    "hyprland/language",
     "hyprland/submap"
   ],
   "modules-right": [
+    "privacy",
     "group/system",
     "group/power",
     "group/actions",
