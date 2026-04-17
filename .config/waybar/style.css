@@ -80,7 +80,7 @@ window#waybar.empty #window {
   margin: 0 0.08rem;
   border-radius: 0.5625rem;
   font-weight: bold;
-  animation: blink 2s infinite ease-in-out;
+  animation: blink 3s infinite ease-in-out;
 }
 
 /* ==========================================
@@ -98,7 +98,7 @@ window#waybar.empty #window {
   border-radius: 0.35rem;
   margin: 0.05rem 0.08rem;
   min-width: 1.8rem; /* Consistent hit area */
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 #workspaces button.active {
@@ -437,7 +437,7 @@ window#waybar.empty #window {
   min-width: 0;
   padding: 0;
   background-color: transparent;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 #mpris.playing,
@@ -615,7 +615,7 @@ window#waybar.empty #window {
 
 #idle_inhibitor.activated {
   color: @blue0;
-  animation: blink-positive 2s infinite ease-in-out;
+  animation: blink-positive 3s infinite ease-in-out;
 }
 
 #language {
@@ -688,19 +688,16 @@ window#waybar.empty #window {
 /* Privacy Indicators */
 #privacy-item.screenshare {
   color: @magenta;
-  animation: blink 3s infinite ease-in-out;
   text-shadow: 0 0 0.5rem @rgba-magenta;
 }
 
 #privacy-item.audio-in {
   color: @red;
-  animation: blink 2s infinite ease-in-out;
   text-shadow: 0 0 0.6rem @rgba-red;
 }
 
 #privacy-item.audio-out {
   color: @blue;
-  animation: blink 3s infinite ease-in-out;
 }
 
 #backlight {
@@ -718,7 +715,7 @@ window#waybar.empty #window {
   border-radius: 0.5625rem;
   box-shadow: none;
   /* Blink effect */
-  animation: blink 2s infinite ease-in-out;
+  animation: blink 3s infinite ease-in-out;
   background-color: @rgba-shadow-medium;
 }
 
@@ -732,7 +729,7 @@ window#waybar.empty #window {
 
 #tray widget>image:hover {
   -gtk-icon-effect: highlight;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 #tray>.passive {
@@ -743,7 +740,6 @@ window#waybar.empty #window {
 #tray>.needs-attention {
   -gtk-icon-effect: highlight;
   background-color: @rgba-red;
-  animation: blink 3s infinite ease-in-out;
 }
 
 #tray>.active {
@@ -840,7 +836,7 @@ tooltip label {
 
 #custom-github.new {
   color: @yellow;
-  animation: blink-positive 2s infinite ease-in-out;
+  animation: blink-positive 3s infinite ease-in-out;
 }
 
 #custom-keyd-layer {
@@ -855,7 +851,7 @@ tooltip label {
 
 #custom-read-that.running {
   color: @green;
-  animation: blink-positive 2s infinite ease-in-out;
+  animation: blink-positive 3s infinite ease-in-out;
   text-shadow: 0 0 0.5rem @rgba-green;
 }
 
@@ -866,7 +862,7 @@ tooltip label {
 
 #custom-transcribe-that.running {
   color: @red;
-  animation: blink 2s infinite ease-in-out;
+  animation: blink 3s infinite ease-in-out;
   text-shadow: 0 0 0.5rem @rgba-red;
 }
 
@@ -930,7 +926,7 @@ tooltip label {
 #workspaces button:hover {
   background: @terminal-black;
   color: @fg-white;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 /* Simplified hover effects */
@@ -976,5 +972,5 @@ tooltip label {
 #mpris:hover {
   color: @cyan;
   background-color: @rgba-cyan;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
 }

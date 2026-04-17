@@ -5,8 +5,7 @@
 // ╚══════════════════════════════╝
 {
   "hyprland/workspaces": {
-    // "format": "<b>{id}</b> {icon}", // ###MODE_MANUAL###
-    "format": "{name}", // ###MODE_AUTONAME###
+    "format": "{name}",
     "separate-outputs": true,
     "show-special": true,
     "special-visible-only": false,
@@ -14,32 +13,6 @@
     "update-active-window": true,
     "format-window-separator": "",
     "window-rewrite-separator": "",
-    "window-rewrite": {
-      "default": "",
-      "class<.*firefox.*>": "<span color='#FF9500'>󰈹</span>",
-      "class<.*kitty.*>": "<span color='#d3f2f5'>󰄛</span>",
-      "class<.*wezterm.*>": "<span color='#818dfb'>󰢱</span>",
-      "class<.*ghostty.*>": "<span color='#fb85ac'>󰊠</span>",
-      "class<.*discord.*>": "<span color='#7289DA'>󰙯</span>",
-      "class<.*vesktop.*>": "<span color='#7289DA'>󰙯</span>",
-      "class<.*code.*>": "<span color='#007ACC'>󰨞</span>",
-      "class<.*codium.*>": "<span color='#059DF1'>󰨞</span>",
-      "class<.*spotify.*>": "<span color='#1ED760'></span>",
-      "class<.*steam.*>": "<span color='#66C0F4'>󰓓</span>",
-      "class<.*thunar.*>": "<span color='#8db750'>󰝰</span>",
-      "class<.*telegram.*>": "<span color='#24A1DE'></span>",
-      "class<.*slack.*>": "<span color='#95699b'></span>",
-      "class<.*gimp.*>": "<span color='#FF8A00'></span>",
-      "class<.*Bitwarden.*>": "<span color='#5f93f8'></span>",
-      "class<.*obsidian.*>": "<span color='#a37cff'>󰴲</span>",
-      "class<.*rofi.*>": "<span color='#70c8ff'></span>",
-      "class<.*pavucontrol.*>": "<span color='#42ff97'>󰕾</span>",
-      "class<.*nm-connection-editor.*>": "<span color='#29adff'>󰤨</span>",
-      "class<.*blueman-manager.*>": "<span color='#29adff'></span>",
-      "class<.*qalculate.*>": "<span color='#bb7cff'>󰑫</span>",
-      "title<.*youtube.*>": "<span color='#CE5252'>󰑈</span>",
-      "title<.*github.*>": "<span color='#f0f6fc'></span>"
-    },
     "on-click": "activate",
     "on-scroll-up": "hyprctl dispatch workspace e+1",
     "on-scroll-down": "hyprctl dispatch workspace e-1"
@@ -48,19 +21,7 @@
   "hyprland/window": {
     "format": "{title}",
     "max-length": 20,
-    "separate-outputs": true,
-    "rewrite": {
-      "(.*) — Mozilla Firefox": "<span color='#FF9500'>󰈹</span> $1",
-      "(.*) - Visual Studio Code": "<span color='#007ACC'>󰨞</span> $1",
-      "(.*) - Discord": "<span color='#7289DA'>󰙯</span> $1",
-      "(.*) - Obsidian": "<span color='#a37cff'>󰴲</span> $1",
-      "(.*) - Thunar": "<span color='#8db750'>󰝰</span> $1",
-      "(.*) - Spotify": "<span color='#1ED760'></span> Spotify",
-      "kitty": "<span color='#d3f2f5'>󰄛</span> Terminal",
-      "ghostty": "<span color='#fb85ac'>󰊠</span> Terminal",
-      "btop": "<span color='#00fff9'></span> System Monitor",
-      "ncdu": "<span color='#ff1a67'>󰋊</span> Disk Analyzer"
-    }
+    "separate-outputs": true
   },
   "hyprland/submap": {
     "format": "󱄔 {}",
@@ -223,8 +184,6 @@
       "blueman": "bluetooth",
       "discord": "discord",
       "vesktop": "discord",
-      "telegram-desktop": "telegram",
-      "spotify": "spotify",
       "nm-applet": "network-wireless"
     },
     "tooltip": true,
@@ -259,7 +218,7 @@
     }
   },
   "cpu": {
-    "interval": 2,
+    "interval": 5,
     "format": " {usage}% {icon0}{icon1}{icon2}{icon3}{icon4}{icon5}{icon6}{icon7}",
     "format-alt": " {usage}% {avg_frequency}GHz",
     "format-icons": [

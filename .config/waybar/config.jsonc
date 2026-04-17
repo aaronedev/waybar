@@ -4,10 +4,8 @@
   "layer": "top",
   "reload_style_on_change": false,
   "modules-left": [
-    "custom/clipboard",
     "tray",
     "idle_inhibitor",
-    "custom/keyd-layer",
     "group/media",
     "group/connectivity",
     "hyprland/window"
