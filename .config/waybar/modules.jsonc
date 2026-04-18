@@ -184,7 +184,9 @@
       "blueman": "bluetooth",
       "discord": "discord",
       "vesktop": "discord",
-      "nm-applet": "network-wireless"
+      "nm-applet": "network-wireless",
+      "org.keepassxc.KeePassXC": "keepassxc"
+
     },
     "tooltip": true,
     "tooltip-format": "📋 System Tray\nIcon size: 21px\nSpacing: 8px"

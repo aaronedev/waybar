@@ -2,6 +2,7 @@
   "include": ["~/.config/waybar/modules.jsonc"],
   "position": "top",
   "layer": "top",
+  "icon_theme": "Adwaita",
   "reload_style_on_change": false,
   "modules-left": [
     "tray",

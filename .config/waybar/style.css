@@ -724,7 +724,7 @@ window#waybar.empty #window {
    ========================================== */
 
 #tray widget>image {
-  padding: 0 0.06rem;
+  padding: 0 0.03rem;
 }
 
 #tray widget>image:hover {
