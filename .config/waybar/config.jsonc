@@ -15,6 +15,7 @@
     "hyprland/workspaces",
     "custom/layout",
     "hyprland/language",
+    "custom/passthru",
     "hyprland/submap"
   ],
   "modules-right": [

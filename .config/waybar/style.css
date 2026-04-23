@@ -148,6 +148,7 @@ window#waybar.empty #window {
 #custom-keyd-layer,
 #custom-layout,
 #custom-lid,
+#custom-passthru,
 #custom-battery-mode,
 #custom-screenshot,
 #custom-read-that,
@@ -816,6 +817,10 @@ tooltip label {
   color: @green;
 }
 
+#custom-passthru.passthru-active {
+  color: @red;
+}
+
 #custom-battery-mode.battery {
   color: @green;
 }
@@ -967,6 +972,7 @@ tooltip label {
 #custom-github:hover,
 #window:hover,
 #submap:hover,
+#custom-passthru:hover,
 #custom-read-that:hover,
 #custom-transcribe-that:hover,
 #mpris:hover {

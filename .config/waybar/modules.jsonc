@@ -466,6 +466,13 @@
     "on-click": "~/.config/waybar/scripts/lid-toggle.sh",
     "format": "{}"
   },
+  "custom/passthru": {
+    "exec": "~/.config/waybar/scripts/passthru-status.sh",
+    "return-type": "json",
+    "interval": 1,
+    "format": "{}",
+    "tooltip": false
+  },
   "hyprland/language": {
     "format": "{}",
     "format-en": "EN",
